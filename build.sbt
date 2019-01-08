@@ -1,0 +1,62 @@
+val Scala_211 = "2.11.11"
+val Scala_212 = "2.12.8"
+
+inThisBuild(
+  List(
+    scalaVersion := Scala_211,
+    organization := "com.kubukoz",
+    homepage := Some(url("https://github.com/kubukoz/error-control")),
+    licenses := List("Apache-2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0")),
+    developers := List(
+      Developer(
+        "kubukoz",
+        "Jakub Kozłowski",
+        "kubukoz@gmail.com",
+        url("https://kubukoz.com")
+      )
+    )
+  ))
+
+val compilerPlugins = List(
+  compilerPlugin("org.scalamacros" % "paradise" % "2.1.1").cross(CrossVersion.full),
+  compilerPlugin("org.spire-math" %% "kind-projector" % "0.9.8")
+)
+
+val commonSettings = Seq(
+  crossScalaVersions := List(Scala_211, Scala_212),
+  scalacOptions ++= Options.all,
+  fork in Test := true,
+  name := "error-control",
+  libraryDependencies ++= compilerPlugins
+)
+
+val core = project
+  .settings(commonSettings)
+  .settings(libraryDependencies ++= Seq(
+              "org.typelevel" %% "cats-core" % "1.5.0"
+            ),
+            name += "-core")
+
+val laws = project
+  .settings(commonSettings)
+  .settings(
+    libraryDependencies ++= List(
+      "org.typelevel" %% "cats-laws" % "1.5.0"
+    ),
+    name += "-laws"
+  )
+  .dependsOn(core)
+
+val tests = project
+  .settings(commonSettings)
+  .settings(
+    name += "-tests",
+    publishArtifact := false,
+    libraryDependencies ++= Seq(
+      "org.typelevel" %% "cats-testkit" % "1.5.0" % Test
+    )
+  )
+  .dependsOn(laws)
+
+val errorControl =
+  project.in(file(".")).settings(name := "error-control").aggregate(core, laws, tests).dependsOn(core, laws, tests)
