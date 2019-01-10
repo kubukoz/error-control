@@ -59,4 +59,8 @@ val tests = project
   .dependsOn(laws)
 
 val errorControl =
-  project.in(file(".")).settings(name := "error-control").aggregate(core, laws, tests).dependsOn(core, laws, tests)
+  project
+    .in(file("."))
+    .settings(name := "error-control", publishArtifact := false)
+    .aggregate(core, laws, tests)
+    .dependsOn(core, laws, tests)
