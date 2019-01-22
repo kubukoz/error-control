@@ -1,4 +1,4 @@
-val Scala_211 = "2.11.11"
+val Scala_211 = "2.11.12"
 val Scala_212 = "2.12.8"
 
 inThisBuild(
