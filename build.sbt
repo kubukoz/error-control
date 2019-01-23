@@ -6,7 +6,7 @@ inThisBuild(
     scalaVersion := Scala_211,
     organization := "com.kubukoz",
     homepage := Some(url("https://github.com/kubukoz/error-control")),
-    licenses := List("Apache-2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0")),
+    licenses := List("MIT" -> url("https://github.com/kubukoz/error-control/blob/master/LICENSE")),
     developers := List(
       Developer(
         "kubukoz",
