@@ -33,7 +33,7 @@ val commonSettings = Seq(
 val core = project
   .settings(commonSettings)
   .settings(libraryDependencies ++= Seq(
-              "org.typelevel" %% "cats-core" % "1.6.1"
+              "org.typelevel" %% "cats-core" % "2.0.0"
             ),
             name += "-core")
 
@@ -41,7 +41,7 @@ val laws = project
   .settings(commonSettings)
   .settings(
     libraryDependencies ++= List(
-      "org.typelevel" %% "cats-laws" % "1.6.1"
+      "org.typelevel" %% "cats-laws" % "2.0.0"
     ),
     name += "-laws"
   )
@@ -53,7 +53,7 @@ val tests = project
     name += "-tests",
     publishArtifact := false,
     libraryDependencies ++= Seq(
-      "org.typelevel" %% "cats-testkit" % "1.6.1" % Test
+      "org.typelevel" %% "cats-testkit" % "2.0.0" % Test
     )
   )
   .dependsOn(laws)
